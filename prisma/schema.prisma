@@ -1,0 +1,97 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  CANDIDATE
+}
+
+enum AttemptStatus {
+  ONGOING
+  COMPLETED
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  fullName     String?
+  avatarUrl    String?
+  passwordHash String?
+  role         Role      @default(CANDIDATE)
+  currentStage Int       @default(1)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  attempts     Attempt[]
+  sessions     Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Exam {
+  id        String    @id @default(cuid())
+  stage     Int
+  subject   String    @default("General")
+  duration  Int       @default(1800) // 30 minutes in seconds
+  questions Question[]
+  attempts  Attempt[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@unique([stage, subject])
+}
+
+model Question {
+  id        String   @id @default(cuid())
+  text      String
+  options   Json     // Store options as JSON array
+  correctOption Int
+  examId    String
+  exam      Exam     @relation(fields: [examId], references: [id])
+  answers   Answer[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Attempt {
+  id             String        @id @default(cuid())
+  userId         String
+  user           User          @relation(fields: [userId], references: [id])
+  examId         String
+  exam           Exam          @relation(fields: [examId], references: [id])
+  startTime      DateTime      @default(now())
+  expiresAt      DateTime?
+  submitTime     DateTime?
+  score          Float?
+  resultReleaseAt DateTime?
+  isProcessed    Boolean       @default(false)
+  status         AttemptStatus @default(ONGOING)
+  answers        Answer[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model Answer {
+  id             String   @id @default(cuid())
+  attemptId      String
+  attempt        Attempt  @relation(fields: [attemptId], references: [id])
+  questionId     String
+  question       Question @relation(fields: [questionId], references: [id])
+  selectedOption Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([attemptId, questionId])
+}
