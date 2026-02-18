@@ -1,3 +1,3 @@
 -- AlterTable
-ALTER TABLE `user` ADD COLUMN `avatarUrl` VARCHAR(191) NULL,
+ALTER TABLE `User` ADD COLUMN `avatarUrl` VARCHAR(191) NULL,
     MODIFY `currentStage` INTEGER NOT NULL DEFAULT 1;

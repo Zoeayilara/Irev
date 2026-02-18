@@ -5,10 +5,10 @@
 
 */
 -- DropIndex
-DROP INDEX `Exam_stage_key` ON `exam`;
+DROP INDEX `Exam_stage_key` ON `Exam`;
 
 -- AlterTable
-ALTER TABLE `exam` ADD COLUMN `subject` VARCHAR(191) NOT NULL DEFAULT 'General';
+ALTER TABLE `Exam` ADD COLUMN `subject` VARCHAR(191) NOT NULL DEFAULT 'General';
 
 -- CreateIndex
 CREATE UNIQUE INDEX `Exam_stage_subject_key` ON `Exam`(`stage`, `subject`);

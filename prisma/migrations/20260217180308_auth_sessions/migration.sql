@@ -6,12 +6,12 @@
 
 */
 -- AlterTable
-ALTER TABLE `attempt` ADD COLUMN `expiresAt` DATETIME(3) NULL,
+ALTER TABLE `Attempt` ADD COLUMN `expiresAt` DATETIME(3) NULL,
     ADD COLUMN `resultReleaseAt` DATETIME(3) NULL,
     MODIFY `score` DOUBLE NULL;
 
 -- AlterTable
-ALTER TABLE `user` ADD COLUMN `fullName` VARCHAR(191) NULL,
+ALTER TABLE `User` ADD COLUMN `fullName` VARCHAR(191) NULL,
     ADD COLUMN `passwordHash` VARCHAR(191) NULL;
 
 -- CreateTable
