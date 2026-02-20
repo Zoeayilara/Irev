@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description: "Secure scholarship exam platform",
 };
 
+export const runtime = 'nodejs'
+
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -38,7 +38,7 @@ export async function login(formData: FormData) {
     }
 
     await createSession(user.id)
-    redirect("/")
+    redirect("/dashboard")
 }
 
 export async function register(formData: FormData) {
@@ -85,7 +85,7 @@ export async function register(formData: FormData) {
     }
 
     await createSession(user.id)
-    redirect("/")
+    redirect("/dashboard")
 }
 
 export async function logout() {

@@ -1,6 +1,6 @@
 import { login } from "@/lib/actions"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import SubmitButton from "@/components/ui/submit-button"
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -66,7 +66,7 @@ export default function LoginPage({
                                     <Input id="password" name="password" type="password" required />
                                 </div>
 
-                                <Button className="w-full">Sign in</Button>
+                                <SubmitButton className="w-full" pendingText="Signing in...">Sign in</SubmitButton>
                             </form>
 
                             <div className="text-sm text-slate-600 dark:text-slate-300">

@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma"
 import { requireAdminUserId } from "@/lib/auth"
 import { createExam, createQuestion } from "@/lib/admin-actions"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import SubmitButton from "@/components/ui/submit-button"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
@@ -24,7 +24,7 @@ export default async function AdminPage() {
             <p className="text-sm text-slate-600 dark:text-slate-300">Manage exam stages and questions</p>
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-sm text-slate-700 hover:underline dark:text-slate-200">Back to dashboard</Link>
+            <Link href="/dashboard" className="text-sm text-slate-700 hover:underline dark:text-slate-200">Back to dashboard</Link>
           </div>
         </div>
       </header>
@@ -50,7 +50,7 @@ export default async function AdminPage() {
                   <label htmlFor="duration" className="text-sm text-foreground">Duration (seconds)</label>
                   <Input id="duration" name="duration" type="number" min={60} placeholder="1800" required />
                 </div>
-                <Button>Create Exam</Button>
+                <SubmitButton pendingText="Creating...">Create Exam</SubmitButton>
               </form>
             </CardContent>
           </Card>
@@ -112,9 +112,9 @@ export default async function AdminPage() {
                   <Input id="correctOption" name="correctOption" type="number" min={0} placeholder="0" required />
                 </div>
 
-                <Button disabled={exams.length === 0}>
+                <SubmitButton pendingText="Creating..." disabled={exams.length === 0}>
                   Create Question
-                </Button>
+                </SubmitButton>
               </form>
             </CardContent>
           </Card>

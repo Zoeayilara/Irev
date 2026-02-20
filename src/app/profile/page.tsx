@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma"
 import { requireUserId } from "@/lib/auth"
 import AvatarUploader from "@/components/profile/avatar-uploader"
 import { updateProfile } from "@/lib/profile-actions"
-import { Button } from "@/components/ui/button"
+import SubmitButton from "@/components/ui/submit-button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -39,7 +39,7 @@ export default async function ProfilePage() {
                 <div className="text-center">
                     <h1 className="text-2xl font-bold">Profile</h1>
                     <p className="mt-2 text-slate-600 dark:text-slate-300">User not found.</p>
-                    <Link href="/" className="mt-6 inline-block text-primary hover:underline">Back to dashboard</Link>
+                    <Link href="/dashboard" className="mt-6 inline-block text-primary hover:underline">Back to dashboard</Link>
                 </div>
             </div>
         )
@@ -53,7 +53,7 @@ export default async function ProfilePage() {
                         <h1 className="text-xl font-bold">My Profile</h1>
                         <div className="text-sm text-slate-600 dark:text-slate-300">Manage your candidate details and view results</div>
                     </div>
-                    <Link href="/" className="text-sm text-slate-700 hover:underline dark:text-slate-200">Back to dashboard</Link>
+                    <Link href="/dashboard" className="text-sm text-slate-700 hover:underline dark:text-slate-200">Back to dashboard</Link>
                 </div>
             </header>
 
@@ -99,7 +99,7 @@ export default async function ProfilePage() {
                                 </div>
 
                                 <div className="flex items-center gap-3">
-                                    <Button type="submit">Save changes</Button>
+                                    <SubmitButton pendingText="Saving...">Save changes</SubmitButton>
                                     <div className="text-xs text-slate-600 dark:text-slate-300">Your email cannot be changed.</div>
                                 </div>
                             </form>

@@ -1,6 +1,6 @@
 import { register } from "@/lib/actions"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import SubmitButton from "@/components/ui/submit-button"
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -68,7 +68,7 @@ export default function RegisterPage({
                                     <Input id="confirmPassword" name="confirmPassword" type="password" required />
                                 </div>
 
-                                <Button className="w-full">Create account</Button>
+                                <SubmitButton className="w-full" pendingText="Creating account...">Create account</SubmitButton>
                             </form>
 
                             <div className="text-sm text-slate-600 dark:text-slate-300">

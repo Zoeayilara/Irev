@@ -6,6 +6,10 @@ import prisma from '@/lib/prisma'
 import { getCurrentUserId } from '@/lib/auth'
 
 export async function POST(req: Request) {
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json({ error: 'Uploads are disabled' }, { status: 503 })
+  }
+
   const userId = await getCurrentUserId()
   if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })

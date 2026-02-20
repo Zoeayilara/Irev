@@ -20,7 +20,7 @@ export default async function ExamPage({
 
     if (user?.currentStage === 0) {
         await prisma.user.update({ where: { id: userId }, data: { currentStage: 1 } })
-        redirect('/')
+        redirect('/dashboard')
     }
 
     // Only allow Stage 1 for now (Prototype Scope)
@@ -30,7 +30,7 @@ export default async function ExamPage({
                 <div className="text-center p-8">
                     <h1 className="text-2xl font-bold text-red-500">Access Denied</h1>
                     <p className="mt-4 text-slate-600 dark:text-slate-300">You are not eligible for this exam stage.</p>
-                    <Link href="/" className="mt-6 inline-block text-primary hover:underline">Return to Dashboard</Link>
+                    <Link href="/dashboard" className="mt-6 inline-block text-primary hover:underline">Return to Dashboard</Link>
                 </div>
             </div>
         )
@@ -70,7 +70,7 @@ export default async function ExamPage({
                 <div className="text-center p-8">
                     <h1 className="text-2xl font-bold">Select a Subject</h1>
                     <p className="mt-3 text-slate-600 dark:text-slate-300">Go back to your dashboard and pick a subject to begin.</p>
-                    <Link href="/" className="mt-6 inline-block text-primary hover:underline">Return to Dashboard</Link>
+                    <Link href="/dashboard" className="mt-6 inline-block text-primary hover:underline">Return to Dashboard</Link>
                 </div>
             </div>
         )
@@ -99,7 +99,7 @@ export default async function ExamPage({
                 <div className="text-center p-8">
                     <h1 className="text-2xl font-bold text-red-500">Access Denied</h1>
                     <p className="mt-4 text-slate-600 dark:text-slate-300">This exam does not match your current stage.</p>
-                    <Link href="/" className="mt-6 inline-block text-primary hover:underline">Return to Dashboard</Link>
+                    <Link href="/dashboard" className="mt-6 inline-block text-primary hover:underline">Return to Dashboard</Link>
                 </div>
             </div>
         )
@@ -120,7 +120,7 @@ export default async function ExamPage({
                     <div className="text-center">
                         <h1 className="text-3xl font-bold text-emerald-500">Exam Completed</h1>
                         <p className="mt-4 text-slate-600 dark:text-slate-300">You have already submitted this exam.</p>
-                        <Link href="/" className="mt-6 inline-block px-6 py-2 rounded-md bg-primary text-primary-foreground hover:opacity-95">Go to Dashboard</Link>
+                        <Link href="/dashboard" className="mt-6 inline-block px-6 py-2 rounded-md bg-primary text-primary-foreground hover:opacity-95">Go to Dashboard</Link>
                     </div>
                 </div>
             )

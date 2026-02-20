@@ -63,6 +63,96 @@ const stage1Subjects = [
       },
     ],
   },
+  {
+    subject: 'Physics',
+    questions: [
+      {
+        text: 'What is the SI unit of force?',
+        options: ['Joule', 'Newton', 'Watt', 'Pascal'],
+        correctOption: 1,
+      },
+      {
+        text: 'Speed is defined as:',
+        options: ['Distance ÷ time', 'Time ÷ distance', 'Mass × acceleration', 'Force ÷ area'],
+        correctOption: 0,
+      },
+      {
+        text: 'Which of these is a form of energy?',
+        options: ['Velocity', 'Temperature', 'Kinetic energy', 'Pressure'],
+        correctOption: 2,
+      },
+      {
+        text: 'If voltage increases while resistance stays constant, current:',
+        options: ['Decreases', 'Increases', 'Stays the same', 'Becomes zero'],
+        correctOption: 1,
+      },
+      {
+        text: 'A device that measures electric current is called:',
+        options: ['Voltmeter', 'Ammeter', 'Thermometer', 'Barometer'],
+        correctOption: 1,
+      },
+    ],
+  },
+  {
+    subject: 'Chemistry',
+    questions: [
+      {
+        text: 'Water is a compound made of:',
+        options: ['Hydrogen and Oxygen', 'Carbon and Oxygen', 'Sodium and Chlorine', 'Nitrogen and Hydrogen'],
+        correctOption: 0,
+      },
+      {
+        text: 'The pH of a neutral solution is:',
+        options: ['0', '7', '10', '14'],
+        correctOption: 1,
+      },
+      {
+        text: 'Which is a noble gas?',
+        options: ['Oxygen', 'Nitrogen', 'Helium', 'Hydrogen'],
+        correctOption: 2,
+      },
+      {
+        text: 'Rusting is an example of:',
+        options: ['Neutralization', 'Oxidation', 'Distillation', 'Evaporation'],
+        correctOption: 1,
+      },
+      {
+        text: 'The chemical symbol for Sodium is:',
+        options: ['So', 'Sd', 'Na', 'N'],
+        correctOption: 2,
+      },
+    ],
+  },
+  {
+    subject: 'Biology',
+    questions: [
+      {
+        text: 'The basic unit of life is the:',
+        options: ['Atom', 'Cell', 'Tissue', 'Organ'],
+        correctOption: 1,
+      },
+      {
+        text: 'Photosynthesis occurs in the:',
+        options: ['Mitochondria', 'Nucleus', 'Chloroplast', 'Ribosome'],
+        correctOption: 2,
+      },
+      {
+        text: 'Humans have how many chambers in the heart?',
+        options: ['2', '3', '4', '5'],
+        correctOption: 2,
+      },
+      {
+        text: 'Which blood cells help to fight infection?',
+        options: ['Red blood cells', 'White blood cells', 'Platelets', 'Plasma'],
+        correctOption: 1,
+      },
+      {
+        text: 'The process by which plants lose water vapor is called:',
+        options: ['Transpiration', 'Respiration', 'Germination', 'Excretion'],
+        correctOption: 0,
+      },
+    ],
+  },
 ] as const
 
 export async function ensureDefaultStage1Exams() {

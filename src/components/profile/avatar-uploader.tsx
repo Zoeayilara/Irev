@@ -15,6 +15,8 @@ export default function AvatarUploader({
   const router = useRouter()
   const [isUploading, setIsUploading] = useState(false)
 
+  const uploadsDisabled = process.env.NODE_ENV === 'production'
+
   const initials = useMemo(() => {
     const name = email.split('@')[0] || 'U'
     return name.slice(0, 2).toUpperCase()
@@ -22,6 +24,11 @@ export default function AvatarUploader({
 
   const onFileChange = async (file: File | null) => {
     if (!file) return
+
+    if (uploadsDisabled) {
+      return
+    }
+
     setIsUploading(true)
     try {
       const formData = new FormData()
@@ -61,14 +68,16 @@ export default function AvatarUploader({
               accept="image/*"
               className="hidden"
               onChange={(e) => onFileChange(e.target.files?.[0] || null)}
-              disabled={isUploading}
+              disabled={isUploading || uploadsDisabled}
             />
-            <Button type="button" variant="outline" size="sm" disabled={isUploading}>
-              {isUploading ? 'Uploading...' : 'Upload'}
+            <Button type="button" variant="outline" size="sm" disabled={isUploading || uploadsDisabled}>
+              {uploadsDisabled ? 'Disabled' : isUploading ? 'Uploading...' : 'Upload'}
             </Button>
           </label>
         </div>
-        <div className="text-xs text-slate-600 dark:text-slate-300">PNG/JPG up to ~2MB recommended.</div>
+        <div className="text-xs text-slate-600 dark:text-slate-300">
+          {uploadsDisabled ? 'Uploads are temporarily disabled in production.' : 'PNG/JPG up to ~2MB recommended.'}
+        </div>
       </div>
     </div>
   )

@@ -58,7 +58,7 @@ export async function submitExam(attemptId: string, answers: Record<string, numb
     if (!attempt) throw new Error("Attempt not found")
     if (attempt.userId !== userId) throw new Error("Forbidden")
     if (attempt.status === "COMPLETED") {
-        redirect("/")
+        redirect("/dashboard")
     }
 
     const now = new Date()
@@ -118,7 +118,7 @@ export async function submitExam(attemptId: string, answers: Record<string, numb
         })
     })
 
-    redirect("/")
+    redirect("/dashboard")
 }
 
 export async function getExamById(examId: string) {

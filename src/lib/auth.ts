@@ -98,6 +98,6 @@ export async function requireUserId() {
 export async function requireAdminUserId() {
   const userId = await requireUserId()
   const user = await prisma.user.findUnique({ where: { id: userId }, select: { role: true } })
-  if (!user || user.role !== 'ADMIN') redirect('/')
+  if (!user || user.role !== 'ADMIN') redirect('/dashboard')
   return userId
 }
