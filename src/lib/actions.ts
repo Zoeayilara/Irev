@@ -12,10 +12,16 @@ export async function login(formData: FormData) {
         redirect("/login?error=missing")
     }
 
-    const user = await prisma.user.findUnique({
-        where: { email },
-        select: { id: true, passwordHash: true, currentStage: true },
-    })
+    let user;
+    try {
+        user = await prisma.user.findUnique({
+            where: { email },
+            select: { id: true, passwordHash: true, currentStage: true },
+        })
+    } catch (error) {
+        console.error("Database connection error during login:", error)
+        redirect("/login?error=db_error")
+    }
 
     if (!user) {
         redirect("/login?error=invalid")
@@ -56,29 +62,36 @@ export async function register(formData: FormData) {
     }
 
     const passwordHash = await hashPassword(password)
-    const existing = await prisma.user.findUnique({ where: { email }, select: { id: true, passwordHash: true } })
+    let user;
 
-    const user = existing
-        ? existing.passwordHash
-            ? null
-            : await prisma.user.update({
-                where: { id: existing.id },
+    try {
+        const existing = await prisma.user.findUnique({ where: { email }, select: { id: true, passwordHash: true } })
+
+        user = existing
+            ? existing.passwordHash
+                ? null
+                : await prisma.user.update({
+                    where: { id: existing.id },
+                    data: {
+                        fullName,
+                        passwordHash,
+                    },
+                    select: { id: true },
+                })
+            : await prisma.user.create({
                 data: {
                     fullName,
+                    email,
                     passwordHash,
+                    role: "CANDIDATE",
+                    currentStage: 1,
                 },
                 select: { id: true },
             })
-        : await prisma.user.create({
-            data: {
-                fullName,
-                email,
-                passwordHash,
-                role: "CANDIDATE",
-                currentStage: 1,
-            },
-            select: { id: true },
-        })
+    } catch (error) {
+        console.error("Database connection error during register:", error)
+        redirect("/register?error=db_error")
+    }
 
     if (!user) {
         redirect("/register?error=exists")
