@@ -73,10 +73,16 @@ export async function getCurrentUserId() {
   if (!token) return null
 
   const tokenHash = sha256Hex(token)
-  const session = await prisma.session.findUnique({
-    where: { tokenHash },
-    select: { userId: true, expiresAt: true },
-  })
+  let session;
+  try {
+    session = await prisma.session.findUnique({
+      where: { tokenHash },
+      select: { userId: true, expiresAt: true },
+    })
+  } catch (error) {
+    console.error("Failed to fetch session from DB (Server Component):", error)
+    return null;
+  }
 
   if (!session || session.expiresAt.getTime() <= Date.now()) {
     cookieStore.delete(SESSION_COOKIE_NAME)
