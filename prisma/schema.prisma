@@ -1,10 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  role         Role      @default(CANDIDATE)
+  currentStage Int       @default(1)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  fullName     String?
+  passwordHash String?
+  avatarUrl    String?
+  attempts     Attempt[]
+  sessions     Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "Session_userId_fkey")
+}
+
+model Exam {
+  id        String     @id @default(cuid())
+  stage     Int
+  duration  Int        @default(1800)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  subject   String     @default("General")
+  attempts  Attempt[]
+  questions Question[]
+
+  @@unique([stage, subject])
+}
+
+model Question {
+  id            String   @id @default(cuid())
+  text          String
+  options       Json
+  correctOption Int
+  examId        String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  answers       Answer[]
+  exam          Exam     @relation(fields: [examId], references: [id])
+
+  @@index([examId], map: "Question_examId_fkey")
+}
+
+model Attempt {
+  id              String        @id @default(cuid())
+  userId          String
+  examId          String
+  startTime       DateTime      @default(now())
+  submitTime      DateTime?
+  score           Float?
+  isProcessed     Boolean       @default(false)
+  status          AttemptStatus @default(ONGOING)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  expiresAt       DateTime?
+  resultReleaseAt DateTime?
+  answers         Answer[]
+  exam            Exam          @relation(fields: [examId], references: [id])
+  user            User          @relation(fields: [userId], references: [id])
+
+  @@index([examId], map: "Attempt_examId_fkey")
+  @@index([userId], map: "Attempt_userId_fkey")
+}
+
+model Answer {
+  id             String   @id @default(cuid())
+  attemptId      String
+  questionId     String
+  selectedOption Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  attempt        Attempt  @relation(fields: [attemptId], references: [id])
+  question       Question @relation(fields: [questionId], references: [id])
+
+  @@unique([attemptId, questionId])
+  @@index([questionId], map: "Answer_questionId_fkey")
 }
 
 enum Role {
@@ -15,83 +102,4 @@ enum Role {
 enum AttemptStatus {
   ONGOING
   COMPLETED
-}
-
-model User {
-  id           String    @id @default(cuid())
-  email        String    @unique
-  fullName     String?
-  avatarUrl    String?
-  passwordHash String?
-  role         Role      @default(CANDIDATE)
-  currentStage Int       @default(1)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  attempts     Attempt[]
-  sessions     Session[]
-}
-
-model Session {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  tokenHash String   @unique
-  expiresAt DateTime
-  createdAt DateTime @default(now())
-}
-
-model Exam {
-  id        String    @id @default(cuid())
-  stage     Int
-  subject   String    @default("General")
-  duration  Int       @default(1800) // 30 minutes in seconds
-  questions Question[]
-  attempts  Attempt[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-
-  @@unique([stage, subject])
-}
-
-model Question {
-  id        String   @id @default(cuid())
-  text      String
-  options   Json     // Store options as JSON array
-  correctOption Int
-  examId    String
-  exam      Exam     @relation(fields: [examId], references: [id])
-  answers   Answer[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Attempt {
-  id             String        @id @default(cuid())
-  userId         String
-  user           User          @relation(fields: [userId], references: [id])
-  examId         String
-  exam           Exam          @relation(fields: [examId], references: [id])
-  startTime      DateTime      @default(now())
-  expiresAt      DateTime?
-  submitTime     DateTime?
-  score          Float?
-  resultReleaseAt DateTime?
-  isProcessed    Boolean       @default(false)
-  status         AttemptStatus @default(ONGOING)
-  answers        Answer[]
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-}
-
-model Answer {
-  id             String   @id @default(cuid())
-  attemptId      String
-  attempt        Attempt  @relation(fields: [attemptId], references: [id])
-  questionId     String
-  question       Question @relation(fields: [questionId], references: [id])
-  selectedOption Int
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  @@unique([attemptId, questionId])
 }

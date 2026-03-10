@@ -2,7 +2,9 @@ import { login } from "@/lib/actions"
 import { Input } from "@/components/ui/input"
 import SubmitButton from "@/components/ui/submit-button"
 import Link from "next/link"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import Image from "next/image"
+import { Trophy } from "lucide-react" // Placeholder for iRev logo
+import { PasswordInput } from "@/components/ui/password-input"
 
 function getErrorMessage(error?: string) {
     if (!error) return null
@@ -11,69 +13,113 @@ function getErrorMessage(error?: string) {
     return 'Unable to login. Please try again.'
 }
 
-export default function LoginPage({
+export default async function LoginPage({
     searchParams,
 }: {
-    searchParams?: { error?: string }
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-    const errorMessage = getErrorMessage(searchParams?.error)
+    const resolvedSearchParams = await searchParams
+    const errorParam = typeof resolvedSearchParams.error === 'string' ? resolvedSearchParams.error : undefined
+    const errorMessage = getErrorMessage(errorParam)
 
     return (
-        <div className="min-h-screen bg-background">
-            <div className="min-h-screen grid lg:grid-cols-2">
-                <div className="hidden lg:flex flex-col justify-between p-10 bg-gradient-to-br from-slate-50 to-blue-50 border-r border-border">
-                    <div className="space-y-2">
-                        <div className="text-sm font-semibold text-slate-700">Scholarship Exam Portal</div>
-                        <div className="text-4xl font-bold tracking-tight text-slate-900">Candidate Login</div>
-                        <div className="text-slate-600 max-w-md">
-                            Sign in to select your subject and begin your exam in a secure environment.
-                        </div>
+        <div className="flex min-h-screen bg-[#F5F7FA] font-sans">
+            {/* Left Form Section */}
+            <div className="flex-1 flex flex-col justify-center items-center py-12 px-4 sm:px-8 lg:px-20 xl:px-24">
+                <div className="mx-auto w-full max-w-md rounded-[24px] bg-white p-8 sm:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+                    {/* Logo Area */}
+                    <div className="flex justify-center mb-8">
+                        <Link href="/" className="inline-block hover:opacity-90 transition-opacity">
+                            <Image
+                                src="/irev-logo.jpg"
+                                alt="iRev Logo"
+                                width={120}
+                                height={48}
+                                className="object-contain h-12 w-auto"
+                                priority
+                            />
+                        </Link>
                     </div>
-                    <div className="text-xs text-slate-500">© {new Date().getFullYear()} Scholarship Exam Platform</div>
+
+                    <div className="text-center mb-10">
+                        <h2 className="text-3xl font-serif font-bold tracking-tight text-[#1A233A] mb-2">
+                            Welcome Back
+                        </h2>
+                        <p className="text-base text-[#4A5568]">
+                            Log in to your iRev account
+                        </p>
+                    </div>
+
+                    {errorMessage && (
+                        <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700 mb-6 flex items-center gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                            {errorMessage}
+                        </div>
+                    )}
+
+                    <form action={login} className="space-y-6">
+                        <div>
+                            <label htmlFor="email" className="block text-sm font-bold text-[#1A233A] mb-2">
+                                Email
+                            </label>
+                            <Input
+                                id="email"
+                                name="email"
+                                type="email"
+                                autoComplete="email"
+                                required
+                                className="h-12 rounded-lg border-[#E2E8F0] focus:border-accent focus-visible:ring-accent bg-transparent placeholder:text-[#A0AEC0] shadow-sm text-base text-[#1A233A]"
+                                placeholder="you@gmail.com"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="password" className="block text-sm font-bold text-[#1A233A] mb-2">
+                                Password
+                            </label>
+                            <PasswordInput
+                                id="password"
+                                name="password"
+                                autoComplete="current-password"
+                                required
+                                className="h-12 rounded-lg border-[#E2E8F0] focus:border-accent focus-visible:ring-accent bg-transparent placeholder:text-[#A0AEC0] shadow-sm text-base text-[#1A233A]"
+                                placeholder="Enter password"
+                            />
+                        </div>
+
+                        <div className="pt-2">
+                            <SubmitButton className="w-full h-12 bg-accent hover:bg-accent/90 text-primary font-bold text-[15px] rounded-lg shadow-sm transition-all focus:ring-2 focus:ring-offset-2 focus:ring-accent">
+                                Login
+                            </SubmitButton>
+                        </div>
+                    </form>
+
+                    <div className="mt-8 text-center text-sm">
+                        <p className="text-[#4A5568] font-medium">
+                            Don't have an account?{' '}
+                            <Link href="/register" className="text-accent hover:underline font-bold">
+                                Register here
+                            </Link>
+                        </p>
+                    </div>
                 </div>
+            </div>
 
-                <div className="flex items-center justify-center p-6">
-                    <Card className="w-full max-w-md">
-                        <CardHeader className="space-y-2">
-                            <CardTitle className="text-2xl">Welcome back</CardTitle>
-                            <CardDescription>Enter your credentials to continue.</CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            {errorMessage ? (
-                                <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-200">
-                                    {errorMessage}
-                                </div>
-                            ) : null}
-
-                            <form action={login} className="space-y-4">
-                                <div className="space-y-2">
-                                    <label htmlFor="email" className="text-sm font-medium text-foreground">
-                                        Email
-                                    </label>
-                                    <Input
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        placeholder="candidate@example.com"
-                                        required
-                                    />
-                                </div>
-
-                                <div className="space-y-2">
-                                    <label htmlFor="password" className="text-sm font-medium text-foreground">
-                                        Password
-                                    </label>
-                                    <Input id="password" name="password" type="password" required />
-                                </div>
-
-                                <SubmitButton className="w-full" pendingText="Signing in...">Sign in</SubmitButton>
-                            </form>
-
-                            <div className="text-sm text-slate-600 dark:text-slate-300">
-                                New candidate? <Link href="/register" className="font-semibold text-primary hover:underline">Create an account</Link>
-                            </div>
-                        </CardContent>
-                    </Card>
+            {/* Right Image Section */}
+            <div className="hidden lg:block relative w-0 flex-1 bg-primary">
+                <Image
+                    className="absolute inset-0 h-full w-full object-cover opacity-90 mix-blend-overlay"
+                    src="/desktop-6.jpg"
+                    alt="Students smiling and looking forward"
+                    fill
+                    priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
+                <div className="absolute bottom-12 left-12 right-12 text-white">
+                    <h3 className="font-serif text-4xl font-bold mb-4">Empowering Brilliance.</h3>
+                    <p className="text-lg text-primary-foreground/80 max-w-lg leading-relaxed">
+                        Join the intellectual revolution. Access fully-funded scholarships and transform your academic journey today.
+                    </p>
                 </div>
             </div>
         </div>

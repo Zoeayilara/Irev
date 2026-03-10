@@ -59,136 +59,129 @@ export default function ExamInterface({ exam, attempt }: ExamInterfaceProps) {
     const answeredCount = Object.keys(answers).length
 
     return (
-        <div className="min-h-screen bg-background text-foreground">
-            <header className="border-b border-border bg-card">
-                <div className="container mx-auto px-4 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex items-center gap-3">
-                        <div className="flex flex-col">
-                            <h1 className="text-xl font-bold">Exam Hall</h1>
-                            <div className="text-xs text-slate-600 dark:text-slate-300">{exam.subject}</div>
+        <div className="min-h-screen bg-slate-50 text-foreground font-sans flex flex-col">
+            {/* Header */}
+            <header className="bg-primary text-primary-foreground sticky top-0 z-50 shadow-md">
+                <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <div className="bg-accent text-accent-foreground font-serif font-bold text-lg px-2 py-0.5 rounded shadow-sm">
+                            iRev
                         </div>
-                        <Badge variant="outline">Answered {answeredCount}/{exam.questions.length}</Badge>
+                        <div className="hidden sm:block border-l border-primary-foreground/20 h-8 pl-4">
+                            <h1 className="text-base font-bold">National Scholarship Exam</h1>
+                            <div className="text-xs text-primary-foreground/70">{exam.subject}</div>
+                        </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                        <span className="text-slate-600 dark:text-slate-300 text-sm">Time Remaining</span>
-                        <ExamTimer startTime={attempt.startTime} duration={exam.duration} onTimeUp={handleSubmit} />
+
+                    <div className="flex items-center gap-4">
+                        <Badge variant="outline" className="hidden sm:flex bg-primary-foreground/10 text-white border-primary-foreground/20">
+                            {answeredCount} of {exam.questions.length} Answered
+                        </Badge>
+                        <div className="flex items-center gap-2 bg-primary-foreground/10 px-3 py-1.5 rounded-lg border border-primary-foreground/20">
+                            <span className="text-primary-foreground/80 text-xs font-semibold uppercase tracking-wider hidden sm:inline">Time Left</span>
+                            <div className="font-mono text-lg font-bold text-accent">
+                                <ExamTimer startTime={attempt.startTime} duration={exam.duration} onTimeUp={handleSubmit} />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>
 
-            <main className="container mx-auto px-4 py-6">
-                <div className="grid gap-6 lg:grid-cols-12">
-                    <div className="lg:col-span-8">
-                        <Card>
-                            <CardHeader className="space-y-2">
-                                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                                    <div className="text-sm text-slate-600 dark:text-slate-300 uppercase tracking-wide">Question {currentQuestion + 1} of {exam.questions.length}</div>
-                                    {answers[question.id] !== undefined ? (
-                                        <Badge variant="success">Answered</Badge>
-                                    ) : (
-                                        <Badge variant="outline">Not answered</Badge>
-                                    )}
+            <main className="container mx-auto px-4 py-8 flex-1 flex flex-col">
+                <div className="grid gap-8 lg:grid-cols-12 max-w-6xl mx-auto w-full flex-1">
+
+                    {/* Main Question Area */}
+                    <div className="lg:col-span-8 flex flex-col">
+                        <Card className="flex-1 shadow-sm border-slate-200 rounded-2xl overflow-hidden flex flex-col">
+                            <div className="bg-white border-b border-slate-100 flex items-center justify-between px-8 py-4">
+                                <div className="text-sm font-bold text-slate-500 uppercase tracking-wider">
+                                    Question {currentQuestion + 1}
                                 </div>
-                                <CardTitle className="text-2xl">{question.text}</CardTitle>
+                                {answers[question.id] !== undefined ? (
+                                    <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100 uppercase tracking-wider text-xs px-2 py-0.5 shadow-none border-none">Saved</Badge>
+                                ) : (
+                                    <Badge className="bg-slate-100 text-slate-500 hover:bg-slate-100 uppercase tracking-wider text-xs px-2 py-0.5 shadow-none border-none">Pending</Badge>
+                                )}
+                            </div>
+
+                            <CardHeader className="px-8 pt-8 pb-4 bg-white">
+                                <CardTitle className="text-2xl font-serif text-slate-900 leading-relaxed">{question.text}</CardTitle>
                             </CardHeader>
 
-                            <CardContent className="space-y-3">
-                                {options.map((option: string, index: number) => (
-                                    <button
-                                        type="button"
-                                        key={index}
-                                        onClick={() => handleOptionSelect(question.id, index)}
-                                        className={`w-full text-left p-4 rounded-lg border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                                            answers[question.id] === index
-                                                ? 'bg-primary text-primary-foreground border-primary/30 shadow-sm'
-                                                : 'bg-card border-border hover:bg-muted'
-                                        }`}
-                                    >
-                                        <div className="flex items-center gap-4">
-                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center border text-sm font-semibold ${
-                                                answers[question.id] === index ? 'border-primary-foreground/70 text-primary-foreground' : 'border-border text-slate-500'
-                                            }`}>
-                                                {String.fromCharCode(65 + index)}
-                                            </div>
-                                            <span className="text-base sm:text-lg">{option}</span>
-                                        </div>
-                                    </button>
-                                ))}
-
-                                <div className="pt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                    <Button
-                                        variant="ghost"
-                                        onClick={() => setCurrentQuestion(prev => Math.max(0, prev - 1))}
-                                        disabled={currentQuestion === 0}
-                                    >
-                                        Previous
-                                    </Button>
-
-                                    <div className="flex items-center gap-3">
-                                        {currentQuestion < exam.questions.length - 1 ? (
-                                            <Button
-                                                onClick={() => setCurrentQuestion(prev => Math.min(exam.questions.length - 1, prev + 1))}
+                            <CardContent className="px-8 pb-8 flex-1 bg-white">
+                                <div className="space-y-3 mt-4">
+                                    {options.map((option: string, index: number) => {
+                                        const isSelected = answers[question.id] === index;
+                                        return (
+                                            <button
+                                                type="button"
+                                                key={index}
+                                                onClick={() => handleOptionSelect(question.id, index)}
+                                                className={`w-full text-left p-5 rounded-xl border-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${isSelected
+                                                        ? 'bg-blue-50/50 border-primary text-slate-900 shadow-sm'
+                                                        : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700'
+                                                    }`}
                                             >
-                                                Next
-                                            </Button>
-                                        ) : (
-                                            <Button
-                                                onClick={async () => {
-                                                    if (isSubmitting) return
-                                                    const ok = window.confirm('Submit your exam now?')
-                                                    if (!ok) return
-                                                    await handleSubmit()
-                                                }}
-                                                disabled={isSubmitting}
-                                            >
-                                                {isSubmitting ? 'Submitting...' : 'Submit Exam'}
-                                            </Button>
-                                        )}
-                                    </div>
+                                                <div className="flex items-center gap-4">
+                                                    <div className={`w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center border-2 text-sm font-bold transition-colors ${isSelected
+                                                            ? 'border-primary bg-primary text-white'
+                                                            : 'border-slate-300 text-slate-500 bg-white'
+                                                        }`}>
+                                                        {String.fromCharCode(65 + index)}
+                                                    </div>
+                                                    <span className={`text-base sm:text-lg ${isSelected ? 'font-medium' : ''}`}>{option}</span>
+                                                </div>
+                                            </button>
+                                        )
+                                    })}
                                 </div>
                             </CardContent>
+
+                            {/* Navigation Footer */}
+                            <div className="bg-slate-50 border-t border-slate-200 p-6 flex items-center justify-between">
+                                <Button
+                                    variant="outline"
+                                    size="lg"
+                                    onClick={() => setCurrentQuestion(prev => Math.max(0, prev - 1))}
+                                    disabled={currentQuestion === 0}
+                                    className="border-slate-300 text-slate-700 bg-white hover:bg-slate-100 h-12 px-6"
+                                >
+                                    Previous
+                                </Button>
+
+                                <div className="flex items-center gap-4">
+                                    {currentQuestion < exam.questions.length - 1 ? (
+                                        <Button
+                                            size="lg"
+                                            onClick={() => setCurrentQuestion(prev => Math.min(exam.questions.length - 1, prev + 1))}
+                                            className="bg-primary hover:bg-primary/90 text-white font-bold h-12 px-10 shadow-md"
+                                        >
+                                            Next Question
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            size="lg"
+                                            onClick={async () => {
+                                                if (isSubmitting) return
+                                                const ok = window.confirm('Are you sure you want to finish and submit your exam?')
+                                                if (!ok) return
+                                                await handleSubmit()
+                                            }}
+                                            disabled={isSubmitting}
+                                            className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold h-12 px-10 shadow-lg"
+                                        >
+                                            {isSubmitting ? 'Submitting...' : 'Finish & Submit Exam'}
+                                        </Button>
+                                    )}
+                                </div>
+                            </div>
                         </Card>
 
+                        {/* Mobile Question Navigator */}
                         <div className="mt-6 lg:hidden">
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className="text-base">Questions</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="grid grid-cols-6 sm:grid-cols-10 gap-2">
-                                        {exam.questions.map((q, idx) => {
-                                            const isActive = idx === currentQuestion
-                                            const isAnswered = answers[q.id] !== undefined
-                                            return (
-                                                <button
-                                                    key={q.id}
-                                                    type="button"
-                                                    onClick={() => setCurrentQuestion(idx)}
-                                                    className={`h-10 rounded-md border text-xs font-semibold ${
-                                                        isActive
-                                                            ? 'bg-primary text-primary-foreground border-primary/30'
-                                                            : isAnswered
-                                                                ? 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-200 dark:border-emerald-900/50'
-                                                                : 'bg-card text-foreground border-border hover:bg-muted'
-                                                    }`}
-                                                >
-                                                    {idx + 1}
-                                                </button>
-                                            )
-                                        })}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </div>
-                    </div>
-
-                    <div className="hidden lg:block lg:col-span-4">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle className="text-base">Questions</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="grid grid-cols-5 gap-2">
+                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                                <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Question Navigator</h3>
+                                <div className="grid grid-cols-6 sm:grid-cols-10 gap-2">
                                     {exam.questions.map((q, idx) => {
                                         const isActive = idx === currentQuestion
                                         const isAnswered = answers[q.id] !== undefined
@@ -197,21 +190,63 @@ export default function ExamInterface({ exam, attempt }: ExamInterfaceProps) {
                                                 key={q.id}
                                                 type="button"
                                                 onClick={() => setCurrentQuestion(idx)}
-                                                className={`h-10 rounded-md border text-xs font-semibold ${
-                                                    isActive
-                                                        ? 'bg-primary text-primary-foreground border-primary/30'
+                                                className={`h-10 rounded-lg border-2 text-sm font-bold transition-colors ${isActive
+                                                        ? 'bg-primary text-white border-primary shadow-sm'
                                                         : isAnswered
-                                                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-200 dark:border-emerald-900/50'
-                                                            : 'bg-card text-foreground border-border hover:bg-muted'
-                                                }`}
+                                                            ? 'bg-accent/20 text-slate-900 border-accent/30 hover:border-accent'
+                                                            : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                                                    }`}
                                             >
                                                 {idx + 1}
                                             </button>
                                         )
                                     })}
                                 </div>
-                            </CardContent>
-                        </Card>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Desktop Sidebar Navigator */}
+                    <div className="hidden lg:block lg:col-span-4">
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 sticky top-24">
+                            <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Question Navigator</h3>
+                            <div className="grid grid-cols-5 gap-2 mt-4">
+                                {exam.questions.map((q, idx) => {
+                                    const isActive = idx === currentQuestion
+                                    const isAnswered = answers[q.id] !== undefined
+                                    return (
+                                        <button
+                                            key={q.id}
+                                            type="button"
+                                            onClick={() => setCurrentQuestion(idx)}
+                                            className={`h-10 rounded-lg border-2 text-sm font-bold transition-colors ${isActive
+                                                    ? 'bg-primary text-white border-primary shadow-sm'
+                                                    : isAnswered
+                                                        ? 'bg-accent/20 text-slate-900 border-accent/30 hover:border-accent'
+                                                        : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                                                }`}
+                                        >
+                                            {idx + 1}
+                                        </button>
+                                    )
+                                })}
+                            </div>
+
+                            <div className="mt-8 pt-6 border-t border-slate-100 space-y-3">
+                                <div className="flex items-center gap-3 text-sm text-slate-600">
+                                    <div className="w-4 h-4 rounded border-2 border-primary bg-primary"></div>
+                                    <span>Current Question</span>
+                                </div>
+                                <div className="flex items-center gap-3 text-sm text-slate-600">
+                                    <div className="w-4 h-4 rounded border-2 border-accent/30 bg-accent/20"></div>
+                                    <span>Answered</span>
+                                </div>
+                                <div className="flex items-center gap-3 text-sm text-slate-600">
+                                    <div className="w-4 h-4 rounded border-2 border-slate-200 bg-white"></div>
+                                    <span>Unanswered</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>

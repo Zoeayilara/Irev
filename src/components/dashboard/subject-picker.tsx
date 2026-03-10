@@ -60,12 +60,12 @@ export default function SubjectPicker({
       ) : null}
 
       <div className="grid gap-2">
-        <label className="text-sm font-medium text-foreground">Select Subject</label>
+        <label className="text-sm font-semibold text-slate-700">Select Subject</label>
         <select
           disabled={!!ongoingExamId}
           value={effectiveExamId}
           onChange={(e) => setSelectedExamId(e.target.value)}
-          className="h-11 w-full rounded-md border border-border bg-card px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-60"
+          className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary disabled:opacity-60 shadow-sm transition-all"
         >
           {exams.map((exam) => (
             <option key={exam.id} value={exam.id}>
@@ -75,11 +75,12 @@ export default function SubjectPicker({
         </select>
       </div>
 
-      <div className="flex items-center justify-between gap-3">
-        <Badge variant="outline">{exams.length} subjects available</Badge>
+      <div className="flex items-center justify-between gap-3 mt-4 pt-4 border-t border-slate-100">
+        <Badge variant="outline" className="bg-slate-50 text-slate-600 border-slate-200">{exams.length} subjects available</Badge>
         <Button
           disabled={!effectiveExamId}
           onClick={() => router.push(`/exam?examId=${effectiveExamId}`)}
+          className="bg-primary hover:bg-primary/90 text-white font-semibold rounded-lg px-6"
         >
           {ongoingExamId ? 'Resume Exam' : 'Start Exam'}
         </Button>

@@ -86,9 +86,12 @@ export async function submitExam(attemptId: string, answers: Record<string, numb
     const scorePercent = totalQuestions === 0 ? 0 : (correct / totalQuestions) * 100
     const resultReleaseAt = new Date(now.getTime() + 24 * 60 * 60 * 1000)
 
-    await prisma.$transaction(async (tx) => {
-        for (const [questionId, selectedOption] of Object.entries(answers)) {
-            await tx.answer.upsert({
+    // Refactoring to use an array of operations for a faster, non-interactive transaction
+    const transactionOperations = []
+
+    for (const [questionId, selectedOption] of Object.entries(answers)) {
+        transactionOperations.push(
+            prisma.answer.upsert({
                 where: {
                     attemptId_questionId: {
                         attemptId,
@@ -104,9 +107,11 @@ export async function submitExam(attemptId: string, answers: Record<string, numb
                     selectedOption,
                 },
             })
-        }
+        )
+    }
 
-        await tx.attempt.update({
+    transactionOperations.push(
+        prisma.attempt.update({
             where: { id: attemptId },
             data: {
                 submitTime: now,
@@ -116,7 +121,10 @@ export async function submitExam(attemptId: string, answers: Record<string, numb
                 isProcessed: false,
             },
         })
-    })
+    )
+
+    // Execute all queries concurrently in a single transaction
+    await prisma.$transaction(transactionOperations)
 
     redirect("/dashboard")
 }

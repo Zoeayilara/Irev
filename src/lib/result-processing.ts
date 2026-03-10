@@ -32,8 +32,8 @@ export async function processExamResult(attemptId: string) {
     await prisma.attempt.update({
         where: { id: attemptId },
         data: {
-            score: percentage, // Store as percentage or raw score depending on requirements. Let's say percentage.
-            isProcessed: false // Not yet released to user
+            score: percentage,
+            isProcessed: false
         }
     })
 
@@ -49,10 +49,6 @@ export async function processExamResult(attemptId: string) {
 export async function releaseResults() {
     const now = new Date()
 
-    // Find unprocessed attempts that are past their release time
-    // Note: This query is a bit complex for standard Prisma without raw SQL if we want to do strict date math on DB side easily.
-    // For MVP, we'll fetch unprocessed attempts and filter in code or use a raw query.
-    // Let's use a simpler approach: fetch all unprocessed where submitTime < 24 hours ago.
 
     const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000)
 

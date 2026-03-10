@@ -16,7 +16,13 @@ const config: Config = {
                 border: "var(--border)",
                 primary: "var(--primary)",
                 "primary-foreground": "var(--primary-foreground)",
+                accent: "var(--accent)",
+                "accent-foreground": "var(--accent-foreground)",
                 ring: "var(--ring)",
+                irev: {
+                    navy: '#0A192F',
+                    gold: '#FFD700',
+                },
                 slate: {
                     50: '#f8fafc',
                     100: '#f1f5f9',
@@ -32,7 +38,8 @@ const config: Config = {
                 }
             },
             fontFamily: {
-                sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
+                sans: ['var(--font-inter)', 'var(--font-geist-sans)', 'system-ui', 'sans-serif'],
+                serif: ['var(--font-playfair)', 'Georgia', 'serif'],
             }
         },
     },
