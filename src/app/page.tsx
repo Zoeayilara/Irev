@@ -25,9 +25,9 @@ export default function LandingPage() {
             />
           </div>
 
-          <div className="container mx-auto px-4 relative z-10 mt-8 lg:mt-0">
-            <div className="lg:w-2/3 text-left">
-              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-black tracking-tight mb-6 leading-[1.1] text-white drop-shadow-xl">
+          <div className="container mx-auto px-20 relative z-10 mt-8 lg:mt-0">
+            <div className="lg:w-2/3 text-left ">
+              <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-[55px] font-black tracking-tight mb-6 leading-[1.1] text-white drop-shadow-xl">
                 The Intellectual <br />
                 <span className="flex items-center gap-1 mt-2">
                   <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-accent shrink-0 -ml-2 w-8 h-8 md:w-12 md:h-12">
@@ -36,19 +36,19 @@ export default function LandingPage() {
                   Revolution Has Begun.
                 </span>
               </h1>
-              <p className="text-base sm:text-lg md:text-2xl text-white/95 mb-10 font-medium max-w-2xl leading-relaxed drop-shadow-md">
+              <p className="text-base sm:text-lg md:text-xl text-white/95 mb-10 font-medium max-w-2xl leading-relaxed drop-shadow-md">
                 A 3- Stage Scholarship Competition For Future Leaders.<br className="hidden md:block" />
                 From Primary School to University, Your brilliance<br className="hidden md:block" />
                 deserves a spotlight.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full max-w-md mx-auto sm:mx-0">
                 <Link href="/register" className="w-full sm:w-auto">
-                  <Button size="lg" className="w-full bg-[#101C2E] hover:bg-[#0A111A] text-white font-bold px-10 h-14 rounded-full text-[15px] shadow-[4px_0_15px_1px_rgba(217,119,6,0.6)] border border-transparent">
+                  <Button size="lg" className="w-full bg-[#101C2E] hover:bg-[#0A111A] text-white font-bold px-10 h-14 rounded-full text-[15px] border border-transparent border-r-2 border-r-orange-400">
                     REGISTER NOW
                   </Button>
                 </Link>
                 <Link href="/about" className="w-full sm:w-auto">
-                  <Button size="lg" variant="outline" className="w-full border-[#0A192F]/30 text-[#0A192F] font-semibold px-8 h-12 rounded-full text-base bg-white/50 hover:bg-white hover:text-[#0A192F] backdrop-blur-sm sm:h-14">
+                  <Button size="lg" variant="outline" className="w-full border-[#0A192F]/30 text-[#0A192F] font-semibold px-8 h-12 rounded-full text-base bg-white/50 hover:bg-white hover:text-[#0A192F] backdrop-blur-sm sm:h-14 border-r-2 border-r-orange-400">
                     LEARN MORE
                   </Button>
                 </Link>
@@ -66,7 +66,7 @@ export default function LandingPage() {
 
 
         {/* What is iRev? */}
-        <section id="about" className="py-12 lg:py-24 bg-white relative">
+        <section id="about" className="py-12 lg:py-12 bg-white relative">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-4xl mx-auto">
               <div className="relative inline-block mb-10 mt-10">
@@ -75,7 +75,7 @@ export default function LandingPage() {
                   <path d="M3 11C60 3 160 14 237 5" stroke="#F59E0B" strokeWidth="3" strokeLinecap="round" />
                 </svg>
               </div>
-              <p className="text-sm md:text-base font-medium text-[#0A192F] leading-relaxed max-w-3xl mx-auto">
+              <p className="text-sm md:text-base lg:text-lg font-medium text-[#0A192F] leading-relaxed mx-auto">
                 Intellectual Revolution (iRev) is a national scholarship competition designed to discover, celebrate,<br className="hidden md:block" /> and reward academic excellence among Nigerian students across all levels from primary school to<br className="hidden md:block" /> university.
               </p>
             </div>
@@ -83,7 +83,7 @@ export default function LandingPage() {
         </section>
 
         {/* Who Can Participate? */}
-        <section id="participate" className="py-12 lg:py-24 bg-[#F5F7FA]">
+        <section id="participate" className="py-12 lg:py-14 bg-[#F5F7FA]">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <div className="relative inline-block">
@@ -96,7 +96,7 @@ export default function LandingPage() {
 
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {/* Primary Schools */}
-              <div className="bg-white rounded-[16px] p-8 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col items-center justify-center text-center h-[200px]">
+              <div className="bg-white rounded-3xl hover:drop-shadow-lg hover:shadow-xl p-8 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col items-center justify-center text-center h-[200px]">
                 <div className="bg-[#FEF3C7] p-3 rounded-lg mb-4">
                   <BookOpen className="h-6 w-6 text-[#D97706]" />
                 </div>
@@ -105,7 +105,7 @@ export default function LandingPage() {
               </div>
 
               {/* Junior Secondary */}
-              <div className="bg-white rounded-[16px] p-8 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col items-center justify-center text-center h-[200px]">
+              <div className="bg-white rounded-3xl hover:drop-shadow-lg hover:shadow-xl p-8 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col items-center justify-center text-center h-[200px]">
                 <div className="bg-[#FCE7F3] p-3 rounded-lg mb-4">
                   <Users className="h-6 w-6 text-[#DB2777]" />
                 </div>
@@ -114,7 +114,7 @@ export default function LandingPage() {
               </div>
 
               {/* Senior Secondary */}
-              <div className="bg-white rounded-[16px] p-8 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col items-center justify-center text-center h-[200px]">
+              <div className="bg-white rounded-3xl hover:drop-shadow-lg hover:shadow-xl p-8 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col items-center justify-center text-center h-[200px]">
                 <div className="bg-[#DBEAFE] p-3 rounded-lg mb-4">
                   <GraduationCap className="h-6 w-6 text-[#2563EB]" />
                 </div>
@@ -123,7 +123,7 @@ export default function LandingPage() {
               </div>
 
               {/* 100 Level / ND1 */}
-              <div className="bg-white rounded-[16px] p-8 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col items-center justify-center text-center h-[200px]">
+              <div className="bg-white rounded-3xl hover:drop-shadow-lg hover:shadow-xl p-8 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col items-center justify-center text-center h-[200px]">
                 <div className="bg-[#F3F4F6] p-3 rounded-lg mb-4">
                   <Trophy className="h-6 w-6 text-[#4B5563]" />
                 </div>
@@ -153,7 +153,7 @@ export default function LandingPage() {
 
               {/* Step 1 */}
               <div className="relative w-full max-w-[260px]">
-                <div className="bg-white rounded-[16px] border-2 border-[#1E3A8A] p-6 h-[220px] shadow-sm flex flex-col items-center justify-center text-center relative z-10">
+                <div className="bg-white rounded-[16px] border-2 border-[#1E3A8A] p-6 h-[220px] shadow-sm flex flex-col items-center justify-center text-center relative z-10 hover:drop-shadow-lg hover:shadow-lg hover:shadow-[#1E3A8A]">
                   <div className="absolute -top-3 -left-3 bg-[#1E3A8A] text-white text-xs font-bold w-8 h-8 rounded-tr-lg rounded-bl-lg flex items-center justify-center">
                     01
                   </div>
@@ -169,7 +169,7 @@ export default function LandingPage() {
 
               {/* Step 2 */}
               <div className="relative w-full max-w-[260px]">
-                <div className="bg-white rounded-[16px] border-2 border-[#F59E0B] p-6 h-[220px] shadow-sm flex flex-col items-center justify-center text-center relative z-10">
+                <div className="bg-white rounded-[16px] border-2 border-[#F59E0B] p-6 h-[220px] shadow-sm flex flex-col items-center justify-center text-center relative z-10 hover:drop-shadow-lg hover:shadow-lg hover:shadow-[#F59E0B]">
                   <div className="absolute -top-3 -left-3 bg-[#F59E0B] text-white text-xs font-bold w-8 h-8 rounded-tr-lg rounded-bl-lg flex items-center justify-center">
                     02
                   </div>
@@ -185,7 +185,7 @@ export default function LandingPage() {
 
               {/* Step 3 */}
               <div className="relative w-full max-w-[260px]">
-                <div className="bg-white rounded-[16px] border-2 border-[#BE185D] p-6 h-[220px] shadow-sm flex flex-col items-center justify-center text-center relative z-10">
+                <div className="bg-white rounded-[16px] border-2 border-[#BE185D] p-6 h-[220px] shadow-sm flex flex-col items-center justify-center text-center relative z-10 hover:drop-shadow-lg hover:shadow-lg hover:shadow-[#BE185D]">
                   <div className="absolute -top-3 -left-3 bg-[#BE185D] text-white text-xs font-bold w-8 h-8 rounded-tr-lg rounded-bl-lg flex items-center justify-center">
                     03
                   </div>
@@ -201,7 +201,7 @@ export default function LandingPage() {
 
               {/* Step 4 */}
               <div className="relative w-full max-w-[260px]">
-                <div className="bg-white rounded-[16px] border-2 border-[#3B82F6] p-6 h-[220px] shadow-sm flex flex-col items-center justify-center text-center relative z-10">
+                <div className="bg-white rounded-[16px] border-2 border-[#3B82F6] p-6 h-[220px] shadow-sm flex flex-col items-center justify-center text-center relative z-10 hover:drop-shadow-lg hover:shadow-lg hover:shadow-[#3B82F6]">
                   <div className="absolute -top-3 -left-3 bg-[#3B82F6] text-white text-xs font-bold w-8 h-8 rounded-tr-lg rounded-bl-lg flex items-center justify-center">
                     04
                   </div>
