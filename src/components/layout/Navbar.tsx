@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 
 interface NavbarProps {
-    activePage?: "home" | "about"
+    activePage?: "home" | "about" | "how-it-works"
 }
 
 export function Navbar({ activePage = "home" }: NavbarProps) {
@@ -48,7 +48,10 @@ export function Navbar({ activePage = "home" }: NavbarProps) {
                     >
                         About
                     </Link>
-                    <Link href="/#how-it-works" className="text-[#001A41] font-medium hover:text-[#001A41]/80 transition-colors">
+                    <Link
+                        href="/how-it-works"
+                        className={`transition-colors ${activePage === "how-it-works" ? "text-[#F59E0B] font-bold" : "text-[#001A41] font-medium hover:text-[#001A41]/80"}`}
+                    >
                         How it works
                     </Link>
                     <Link href="/#stages" className="text-[#001A41] font-medium hover:text-[#001A41]/80 transition-colors">
@@ -104,7 +107,7 @@ export function Navbar({ activePage = "home" }: NavbarProps) {
                         >
                             About
                         </Link>
-                        <Link href="/#how-it-works" onClick={toggleMenu} className="text-[#001A41] font-medium">
+                        <Link href="/how-it-works" onClick={toggleMenu} className={`transition-colors ${activePage === "how-it-works" ? "text-[#F59E0B] font-bold" : "text-[#001A41] font-medium"}`}>
                             How it works
                         </Link>
                         <Link href="/#stages" onClick={toggleMenu} className="text-[#001A41] font-medium">
