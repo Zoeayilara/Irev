@@ -2,14 +2,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { Facebook, Instagram, Youtube, Twitter } from "lucide-react"
 
-export function Footer() {
+export function Footer({ topBgColor = "#ffffff" }: { topBgColor?: string }) {
     return (
         <footer className="relative bg-[#112441] text-white pt-20 pb-12 overflow-hidden w-full min-h-[500px]">
             {/* Top-Left Curve with White background & Yellow swoosh */}
             <div className="absolute top-0 left-0 w-[80%] h-[250px] lg:h-[350px] overflow-hidden leading-[0] z-0 pointer-events-none origin-top-left">
                 <svg viewBox="0 0 1000 350" className="w-full h-full" preserveAspectRatio="none">
                     {/* The White cut-out curve from the top */}
-                    <path d="M0,0 L1000,0 C600,0 300,50 0,350 Z" fill="#ffffff" />
+                    <path d="M0,0 L1000,0 C600,0 300,50 0,350 Z" fill={topBgColor} />
                     {/* The Yellow swoosh under the white */}
                     <path d="M0,350 C300,50 600,0 1000,0 L1000,30 C600,30 300,80 0,350 Z" fill="#F59E0B" />
                 </svg>

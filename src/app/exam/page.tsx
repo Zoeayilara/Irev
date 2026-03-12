@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 export default async function ExamPage({
     searchParams,
 }: {
-    searchParams?: Promise<{ examId?: string | string[] }> | { examId?: string | string[] }
+    searchParams?: Promise<{ examId?: string | string[] }>
 }) {
     const userId = await requireUserId()
 
@@ -36,7 +36,7 @@ export default async function ExamPage({
         )
     }
 
-    const resolvedSearchParams = await Promise.resolve(searchParams)
+    const resolvedSearchParams = (await searchParams) ?? {}
     const rawExamId = resolvedSearchParams?.examId
     const examId = Array.isArray(rawExamId) ? rawExamId[0] : rawExamId
     const anyOngoingStageAttempt = await prisma.attempt.findFirst({
