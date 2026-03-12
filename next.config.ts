@@ -5,8 +5,15 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['@prisma/client'],
   experimental: {
     serverActions: {
-      allowedOrigins: ["irevv.netlify.app", "*.netlify.app", "localhost:3000"]
+        allowedOrigins: ["irevv.netlify.app", "*.netlify.app", "localhost:3000"]
     }
+  },
+  webpack: (config) => {
+    config.watchOptions = {
+      poll: 1000,
+      aggregateTimeout: 300,
+    };
+    return config;
   }
 };
 

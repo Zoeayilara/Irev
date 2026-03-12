@@ -3,6 +3,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Footer } from "@/components/layout/Footer"
 import { Navbar } from "@/components/layout/Navbar"
+import image1 from '@/public/problems-graphic.png'
+// import image1 from '@/'
 
 export default function AboutPage() {
     return (
@@ -77,12 +79,12 @@ export default function AboutPage() {
                 </section>
 
                 {/* Vision & Mission Section */}
-                <section className="py-12 lg:py-24 bg-white relative overflow-hidden">
+                <section className="py-12 lg:py-12 bg-white relative overflow-hidden">
                     <div className="container mx-auto px-4 max-w-7xl relative z-10">
                         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative overflow-hidden lg:overflow-visible">
 
                             {/* Left Column: Text */}
-                            <div className="lg:w-5/12 flex flex-col gap-16 lg:gap-24 relative z-20 w-full mt-4 lg:mt-0">
+                            <div className="lg:w-5/12 flex flex-col gap-16 lg:gap-24 relative z-20 w-full mt-4 px-5 lg:mt-0">
 
                                 {/* Our Vision */}
                                 <div>
@@ -92,11 +94,10 @@ export default function AboutPage() {
                                             <path d="M3 11C45 3 120 14 177 5" stroke="#F59E0B" strokeWidth="3" strokeLinecap="round" />
                                         </svg>
                                     </div>
-                                    <p className="text-[#0A192F] font-medium leading-loose text-[15px] md:text-base lg:pr-4">
-                                        To build a generation of intellectually empowered young<br className="hidden xl:block" />
-                                        leaders who will drive positive change across Africa and<br className="hidden xl:block" />
-                                        the world. We envision a future where every brilliant<br className="hidden xl:block" />
-                                        mind, regardless of socioeconomic background, gets<br className="hidden xl:block" />
+                                    <p className="text-[#0A192F] font-medium leading-loose text-[15px] lg:text-lg md:text-base lg:pr-4">
+                                        To build a generation of intellectually empowered young leaders who will drive positive change across Africa and
+                                        the world. We envision a future where every brilliant
+                                        mind, regardless of socioeconomic background, gets
                                         the recognition and support they deserve.
                                     </p>
                                 </div>
@@ -109,11 +110,9 @@ export default function AboutPage() {
                                             <path d="M3 11C50 3 140 14 197 5" stroke="#F59E0B" strokeWidth="3" strokeLinecap="round" />
                                         </svg>
                                     </div>
-                                    <p className="text-[#0A192F] font-medium leading-loose text-[15px] md:text-base lg:pr-4">
-                                        To identify, celebrate, and reward academic excellence<br className="hidden xl:block" />
-                                        among Nigerian students through a fair, transparent,<br className="hidden xl:block" />
-                                        and rigorous 3-stage competition that opens doors to<br className="hidden xl:block" />
-                                        scholarships and life-changing opportunities.
+                                    <p className="text-[#0A192F] font-medium leading-loose text-[15px] md:text-base lg:pr-4 lg:text-lg">
+                                        To identify, celebrate, and reward academic excellen among Nigerian students through a fair, transparent,
+                                        and rigorous 3-stage competition that opens doors  scholarships and life-changing opportunities.
                                     </p>
                                 </div>
 
@@ -148,7 +147,7 @@ export default function AboutPage() {
                             </svg>
                         </div>
 
-                        <div className="space-y-6 text-[#0A192F] font-medium leading-loose text-[15px] md:text-base w-full">
+                        <div className="space-y-6 text-[#0A192F] font-medium leading-loose text-[15px] md:text-base w-full lg:text-lg">
                             <p>
                                 Across Nigeria, thousands of academically brilliant students lack the financial resources to further their
                                 education. Many talented young minds go unnoticed because they don't have access to platforms that
@@ -183,8 +182,9 @@ export default function AboutPage() {
 
                             {/* Left Side: Illustration */}
                             <div className="w-full lg:w-1/3 flex justify-center items-center relative min-h-[400px]">
+                            {/* <Image src={image1} alt="Student on books graphic" className="object-contain" /> */}
                                 <Image
-                                    src="/problems-graphic.png"
+                                    src="/image1.jpg"
                                     alt="Student on books graphic"
                                     fill
                                     className="object-contain"
@@ -334,6 +334,41 @@ export default function AboutPage() {
                     </div>
                 </section>
 
+                {/* FAQ Section */}
+                <section className="py-12 lg:py-24 bg-slate-50 border-t border-slate-200">
+                    <div className="container mx-auto px-4 max-w-3xl">
+                        <h2 className="font-serif text-3xl md:text-5xl font-bold text-center mb-4 text-[#001A41]">Frequently Asked <span className="text-[#F59E0B] underline decoration-[#F59E0B]/50 underline-offset-8">Questions</span></h2>
+                        <p className="text-center text-slate-600 mb-12">Everything you need to know about iRev.</p>
+
+                        <div className="space-y-4">
+                            {[
+                                { q: "What is iRev?", a: "Intellectual Revolution (iRev) is a national scholarship competition designed to discover and reward academic excellence among Nigerian students from primary school to university level." },
+                                { q: "Who can participate?", a: "Students from Primary 1 to Primary 6, JSS 1-3, SS 1-3, and 100 Level / ND1 students across Nigeria are eligible to participate." },
+                                { q: "Is registration free?", a: "Registration for iRev is completely free. We believe every student's opportunity should not have financial barriers." },
+                                { q: "How many stages?", a: "The competition has 3 stages: Stage 1 is an online assessment, Stage 2 is a critical thinking round, and Stage 3 is the grand finale where scholarship winners are selected." },
+                                { q: "What are the prizes?", a: "Prizes include full and partial scholarships, certificates of excellence, and cash rewards for top 10 performers in each category." }
+                            ].map((faq, i) => (
+                                <details key={i} className="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+                                    <summary className="flex cursor-pointer items-center justify-between gap-1.5 p-6 text-[#001A41] font-bold">
+                                        <h3 className="text-lg">{faq.q}</h3>
+                                        <span className="relative size-5 shrink-0">
+                                            <svg className="absolute inset-0 size-5 opacity-100 group-open:opacity-0 transition-opacity text-[#001A41]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                                            </svg>
+                                            <svg className="absolute inset-0 size-5 opacity-0 group-open:opacity-100 transition-opacity text-[#001A41]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M20 12H4" />
+                                            </svg>
+                                        </span>
+                                    </summary>
+                                    <div className="px-6 pb-6 text-slate-600 leading-relaxed">
+                                        {faq.a}
+                                    </div>
+                                </details>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
                 {/* A Message From Founder Section */}
                 <section className="py-12 lg:py-24 mb-16 bg-[#0B2144] overflow-hidden">
                     <div className="container mx-auto px-4 max-w-4xl flex flex-col items-center text-center">
@@ -356,6 +391,7 @@ export default function AboutPage() {
                         </p>
                     </div>
                 </section>
+
 
             </main>
 

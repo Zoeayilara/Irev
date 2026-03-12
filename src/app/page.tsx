@@ -214,7 +214,67 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Prizes & Scholarships */}
+        {/* Scholarship Fund */}
+        <section id="scholarship-fund" className="py-16 lg:py-28 bg-gradient-to-tr from-[#E6F0F9] via-[#FAFAFA] to-[#FFF4E0] relative overflow-hidden">
+          <div className="container mx-auto px-4 max-w-5xl">
+
+            <div className="text-center mb-14">
+              <div className="relative inline-block mb-6">
+                <h2 className="font-serif text-3xl md:text-[42px] font-bold text-[#001A41] tracking-tight">Scholarship Fund</h2>
+                <svg viewBox="0 0 280 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-[90%] max-w-[280px]">
+                  <path d="M3 11C70 3 200 14 277 5" stroke="#F59E0B" strokeWidth="3" strokeLinecap="round" />
+                </svg>
+              </div>
+              <p className="text-[#475569] font-medium leading-relaxed max-w-3xl mx-auto text-[16px] md:text-[17px]">
+                Our growing scholarship fund supports Nigeria's brightest minds. Every<br className="hidden md:block" />
+                season, proceeds go directly towards tuition, learning materials and<br className="hidden md:block" />
+                student empowerment.
+              </p>
+            </div>
+
+            {/* Main Card */}
+            <div className="bg-white rounded-[24px] p-8 md:p-12 shadow-[0_8px_40px_rgba(0,0,0,0.04)] border border-slate-100 max-w-4xl mx-auto flex flex-col items-center">
+
+              <div className="text-center mb-10">
+                <h3 className="text-[#64748B] font-serif font-bold text-[13px] tracking-widest mb-3 uppercase">TOTAL FUND RAISED</h3>
+                <div className="flex items-center justify-center gap-1 font-black text-4xl md:text-[42px] text-[#D97706] tracking-tight">
+                  <span className="font-sans font-bold stroke-current">₦</span>12,500,000
+                </div>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="w-full mb-6">
+                <div className="h-[14px] w-full bg-[#E2E8F0] rounded-full overflow-hidden flex">
+                  <div className="h-full bg-[#F59E0B] rounded-full w-[62%] relative">
+                  </div>
+                </div>
+              </div>
+
+              {/* Progress Labels */}
+              <div className="w-full flex justify-between items-center text-[#64748B] text-[15px] font-medium mb-12">
+                <span>62% of <span className="font-sans">₦</span>20M goal</span>
+                <span>Season 1 Target</span>
+              </div>
+
+              {/* 3 Info Blocks */}
+              <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div className="bg-[#F8FAFC] rounded-[20px] p-6 md:py-8 flex flex-col items-center justify-center text-center">
+                  <span className="font-bold text-[#001A41] text-[22px] mb-2">150+</span>
+                  <span className="text-[#64748B] text-[13px] font-medium">Donors</span>
+                </div>
+                <div className="bg-[#F8FAFC] rounded-[20px] p-6 md:py-8 flex flex-col items-center justify-center text-center px-4">
+                  <span className="font-bold text-[#001A41] text-[22px] mb-2 flex items-center"><span className="font-sans mr-0.5">₦</span>20M</span>
+                  <span className="text-[#64748B] text-[13px] font-medium">Allocated to scholarships</span>
+                </div>
+                <div className="bg-[#F8FAFC] rounded-[20px] p-6 md:py-8 flex flex-col items-center justify-center text-center">
+                  <span className="font-bold text-[#001A41] text-[22px] mb-2">30+</span>
+                  <span className="text-[#64748B] text-[13px] font-medium">Students Supported</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
         <section id="prizes" className="py-12 lg:py-24 bg-[#0B1B36] border-t border-[#1E293B]">
           <div className="container mx-auto px-4">
             <div className="text-center mb-20">
@@ -229,7 +289,7 @@ export default function LandingPage() {
             <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
               {/* Full Scholarship */}
-              <div className="bg-[#0A192F] rounded-[16px] border border-[#1E293B] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_4px_20px_rgba(0,0,0,0.2)] p-8 flex flex-col items-center justify-center text-center h-[280px]">
+              <div className="bg-[#0A192F] rounded-[16px] border border-[#1E293B] shadow-sm hover:shadow-[0_8px_30px_rgba(245,158,11,0.15)] hover:border-[#F59E0B]/50 hover:-translate-y-2 transition-all duration-300 p-8 flex flex-col items-center justify-center text-center h-[280px]">
                 <div className="mb-6">
                   <Award className="h-12 w-12 text-[#F59E0B]" />
                 </div>
@@ -238,7 +298,7 @@ export default function LandingPage() {
               </div>
 
               {/* Cash Prizes */}
-              <div className="bg-[#0A192F] rounded-[16px] border border-[#1E293B] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_4px_20px_rgba(0,0,0,0.2)] p-8 flex flex-col items-center justify-center text-center h-[280px]">
+              <div className="bg-[#0A192F] rounded-[16px] border border-[#1E293B] shadow-sm hover:shadow-[0_8px_30px_rgba(245,158,11,0.15)] hover:border-[#F59E0B]/50 hover:-translate-y-2 transition-all duration-300 p-8 flex flex-col items-center justify-center text-center h-[280px]">
                 <div className="mb-6 bg-[#001A41] w-12 h-12 rounded-full flex items-center justify-center border border-[#1E293B]">
                   {/* Custom Naira symbol using SVG */}
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#F59E0B]">
@@ -250,7 +310,7 @@ export default function LandingPage() {
               </div>
 
               {/* Certificates */}
-              <div className="bg-[#0A192F] rounded-[16px] border border-[#1E293B] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_4px_20px_rgba(0,0,0,0.2)] p-8 flex flex-col items-center justify-center text-center h-[280px]">
+              <div className="bg-[#0A192F] rounded-[16px] border border-[#1E293B] shadow-sm hover:shadow-[0_8px_30px_rgba(245,158,11,0.15)] hover:border-[#F59E0B]/50 hover:-translate-y-2 transition-all duration-300 p-8 flex flex-col items-center justify-center text-center h-[280px]">
                 <div className="mb-6 relative">
                   <svg width="40" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#F59E0B]">
                     <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" fill="currentColor" />
@@ -356,41 +416,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-
-        {/* FAQ Section */}
-        <section className="py-12 lg:py-24 bg-slate-50 border-t border-slate-200">
-          <div className="container mx-auto px-4 max-w-3xl">
-            <h2 className="font-serif text-3xl md:text-5xl font-bold text-center mb-4 text-primary">Frequently Asked <span className="text-accent underline decoration-accent/50 underline-offset-8">Questions</span></h2>
-            <p className="text-center text-slate-600 mb-12">Everything you need to know about iRev.</p>
-
-            <div className="space-y-4">
-              {[
-                { q: "What is iRev?", a: "Intellectual Revolution (iRev) is a national scholarship competition designed to discover and reward academic excellence among Nigerian students from primary school to university level." },
-                { q: "Who can participate?", a: "Students from Primary 1 to Primary 6, JSS 1-3, SS 1-3, and 100 Level / ND1 students across Nigeria are eligible to participate." },
-                { q: "Is registration free?", a: "Registration for iRev is completely free. We believe every student's opportunity should not have financial barriers." },
-                { q: "How many stages?", a: "The competition has 3 stages: Stage 1 is an online assessment, Stage 2 is a critical thinking round, and Stage 3 is the grand finale where scholarship winners are selected." },
-                { q: "What are the prizes?", a: "Prizes include full and partial scholarships, certificates of excellence, and cash rewards for top 10 performers in each category." }
-              ].map((faq, i) => (
-                <details key={i} className="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden [&_summary::-webkit-details-marker]:hidden">
-                  <summary className="flex cursor-pointer items-center justify-between gap-1.5 p-6 text-primary font-bold">
-                    <h3 className="text-lg">{faq.q}</h3>
-                    <span className="relative size-5 shrink-0">
-                      <svg className="absolute inset-0 size-5 opacity-100 group-open:opacity-0 transition-opacity" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                      </svg>
-                      <svg className="absolute inset-0 size-5 opacity-0 group-open:opacity-100 transition-opacity" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M20 12H4" />
-                      </svg>
-                    </span>
-                  </summary>
-                  <div className="px-6 pb-6 text-slate-600 leading-relaxed">
-                    {faq.a}
-                  </div>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
 
       </main>
 
