@@ -3,7 +3,6 @@ import { Input } from "@/components/ui/input"
 import { PasswordInput } from "@/components/ui/password-input"
 import SubmitButton from "@/components/ui/submit-button"
 import Link from "next/link"
-import Image from "next/image"
 
 function getErrorMessage(error?: string) {
     if (!error) return null
@@ -27,18 +26,6 @@ export default async function RegisterPage({
         <div className="min-h-screen bg-[#F5F7FA] font-sans pb-20">
             {/* Top Navy Banner */}
             <div className="bg-primary text-white pt-16 pb-32 px-4 text-center">
-                <div className="flex justify-center mb-6">
-                    <div className="bg-white/10 p-4 rounded-2xl backdrop-blur-sm border border-white/20 inline-block">
-                        <Image
-                            src="/irev-logo.jpg"
-                            alt="iRev Logo"
-                            width={120}
-                            height={48}
-                            className="object-contain h-16 w-auto mix-blend-screen bg-transparent"
-                            priority
-                        />
-                    </div>
-                </div>
                 <div className="flex justify-center items-center gap-2 mb-2">
                     <h1 className="text-4xl md:text-[50px] font-serif font-bold text-white tracking-tight">
                         Register For
@@ -122,7 +109,7 @@ export default async function RegisterPage({
                             <div className="space-y-5">
                                 <div>
                                     <label htmlFor="academicLevel" className="block text-[15px] font-medium text-[#4A5568] mb-2">
-                                        Academic Level<span className="text-red-500">*</span>
+                                        Class<span className="text-red-500">*</span>
                                     </label>
                                     <select
                                         id="academicLevel"
@@ -132,9 +119,23 @@ export default async function RegisterPage({
                                         className="flex h-[52px] w-full rounded-lg border border-[#E2E8F0] bg-[#F8FAFC] px-3 py-2 text-base text-[#1A233A] ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[#A0AEC0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:bg-white disabled:cursor-not-allowed disabled:opacity-50 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M6%209L12%2015L18%209%22%20stroke%3D%22%23A0AEC0%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-[position:right_12px_center] bg-no-repeat shadow-sm"
                                     >
                                         <option value="" disabled className="text-[#A0AEC0]">Select level</option>
+                                        <option value="pry5">Primary 5</option>
+                                        <option value="pry6">Primary 6</option>
+                                        <option value="jss1">JSS1</option>
+                                        <option value="jss2">JSS2</option>
+                                        <option value="jss3">JSS3</option>
                                         <option value="ss1">SS1</option>
                                         <option value="ss2">SS2</option>
                                         <option value="ss3">SS3</option>
+                                        <option value="nd1">ND 1</option>
+                                        <option value="nd2">ND 2</option>
+                                        <option value="hnd1">HND 1</option>
+                                        <option value="hnd2">HND 2</option>
+                                        <option value="100">100 Level</option>
+                                        <option value="200">200 Level</option>
+                                        <option value="300">300 Level</option>
+                                        <option value="400">400 Level</option>
+                                        <option value="500">500 Level</option>
                                     </select>
                                 </div>
                                 <div>
@@ -253,7 +254,9 @@ export default async function RegisterPage({
                             </div>
 
                             <SubmitButton className="w-full h-14 bg-accent hover:bg-accent/90 text-[#1A233A] font-bold text-[16px] rounded-lg shadow-sm transition-all focus:ring-2 focus:ring-offset-2 focus:ring-accent">
-                                Submit Registration
+                                <span className="w-full h-full flex items-center justify-center rounded-lg bg-gradient-to-r from-[#F59E0B] to-[#0A1930] text-white">
+                                    Create Account
+                                </span>
                             </SubmitButton>
 
                             <div className="mt-8 text-center">

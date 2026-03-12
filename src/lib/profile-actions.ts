@@ -19,3 +19,19 @@ export async function updateProfile(formData: FormData) {
 
   redirect('/profile')
 }
+
+export async function updateDashboardProfile(formData: FormData) {
+  const userId = await requireUserId()
+
+  const fullNameRaw = formData.get('fullName')
+  const fullName = typeof fullNameRaw === 'string' ? fullNameRaw.trim() : null
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      fullName: fullName || null,
+    },
+  })
+
+  redirect('/dashboard/profile')
+}

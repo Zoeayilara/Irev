@@ -20,12 +20,12 @@ export default function LandingPage() {
               src="/desktop-6.jpg"
               alt="iRev Background"
               fill
-              className="object-cover object-center"
+              className="object-cover object-right sm:object-center"
               priority
             />
           </div>
 
-          <div className="container mx-auto px-20 relative z-10 mt-8 lg:mt-0">
+          <div className="container mx-auto px-4 sm:px-8 lg:px-20 relative z-10 mt-8 lg:mt-0">
             <div className="lg:w-2/3 text-left ">
               <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-[55px] font-black tracking-tight mb-6 leading-[1.1] text-white drop-shadow-xl">
                 The Intellectual <br />

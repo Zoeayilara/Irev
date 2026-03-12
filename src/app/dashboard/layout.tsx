@@ -4,7 +4,12 @@ import Image from "next/image"
 import prisma from "@/lib/prisma"
 import { logout } from "@/lib/actions"
 import { requireUserId } from "@/lib/auth"
-import { Trophy, ChevronDown, Bell, LogOut, User as UserIcon, Settings, HelpCircle, GraduationCap } from "lucide-react"
+import { ChevronDown, User as UserIcon } from "lucide-react"
+import DashboardTabs from "@/components/dashboard/dashboard-tabs"
+import DashboardNotifications from "@/components/dashboard/dashboard-notifications"
+import { releaseResultsForUser } from "@/lib/result-processing"
+
+export const dynamic = 'force-dynamic'
 
 export default async function DashboardLayout({
     children,
@@ -12,6 +17,8 @@ export default async function DashboardLayout({
     children: React.ReactNode
 }) {
     const userId = await requireUserId()
+
+    await releaseResultsForUser(userId)
 
     const user = await prisma.user.findUnique({
         where: { id: userId },
@@ -37,6 +44,70 @@ export default async function DashboardLayout({
     const displayName = `${firstName} ${lastName}`.trim()
     const schoolDisplayText = `iRev Academy • Stage ${user.currentStage}`
     const userDisplayId = `ID: iRev-2025-${user.id.substring(user.id.length - 5).toUpperCase()}`
+
+    const attempts = await prisma.attempt.findMany({
+        where: {
+            userId,
+            OR: [{ status: "ONGOING" }, { status: "COMPLETED" }],
+        },
+        include: { exam: true },
+        orderBy: [{ submitTime: "desc" }, { startTime: "desc" }],
+        take: 10,
+    })
+
+    const subjectPillText = (() => {
+        const ongoing = attempts.find(a => a.status === "ONGOING")
+        if (ongoing) return ongoing.exam.subject
+        const lastCompleted = attempts.find(a => a.status === "COMPLETED")
+        if (lastCompleted) return lastCompleted.exam.subject
+        return ""
+    })()
+
+    const now = new Date()
+    const formatRelativeTime = (d: Date) => {
+        const diffMs = now.getTime() - d.getTime()
+        const diffMin = Math.floor(diffMs / 60000)
+        if (diffMin < 1) return "just now"
+        if (diffMin < 60) return `${diffMin} min ago`
+        const diffHr = Math.floor(diffMin / 60)
+        if (diffHr < 24) return `${diffHr} hours ago`
+        const diffDay = Math.floor(diffHr / 24)
+        return `${diffDay} days ago`
+    }
+
+    const notificationItems = attempts
+        .filter(a => a.status === "ONGOING" || (a.status === "COMPLETED" && a.submitTime))
+        .slice(0, 5)
+        .map(a => {
+            if (a.status === "ONGOING") {
+                return {
+                    id: a.id,
+                    title: `Ongoing exam: Stage ${a.exam.stage} (${a.exam.subject}).`,
+                    timeLabel: formatRelativeTime(a.startTime),
+                    createdAtIso: a.startTime.toISOString(),
+                    variant: "highlight" as const,
+                }
+            }
+
+            const submit = a.submitTime as Date
+            if (a.isProcessed) {
+                return {
+                    id: a.id,
+                    title: `Result released: Stage ${a.exam.stage} (${a.exam.subject}).`,
+                    timeLabel: formatRelativeTime(submit),
+                    createdAtIso: submit.toISOString(),
+                    variant: "normal" as const,
+                }
+            }
+
+            return {
+                id: a.id,
+                title: `Result processing: Stage ${a.exam.stage} (${a.exam.subject}).`,
+                timeLabel: formatRelativeTime(submit),
+                createdAtIso: submit.toISOString(),
+                variant: "highlight" as const,
+            }
+        })
 
     return (
         <div className="min-h-screen bg-[#F8F9FA] font-sans flex flex-col">
@@ -94,16 +165,13 @@ export default async function DashboardLayout({
 
                     {/* Right side controls (Notifications & Stage Pill) */}
                     <div className="hidden sm:flex items-start gap-6 mt-4 sm:mt-0 relative">
-                        <div className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-5 py-2 rounded-full font-medium text-sm flex items-center shadow-sm">
-                            Science
-                        </div>
-
-                        <div className="relative pt-1 cursor-pointer">
-                            <Bell className="h-6 w-6 text-white" />
-                            <div className="absolute top-0 right-0 w-4 h-4 rounded-full bg-red-500 text-[10px] font-bold text-white flex items-center justify-center border-2 border-[#0A192F]">
-                                2
+                        {subjectPillText ? (
+                            <div className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-5 py-2 rounded-full font-medium text-sm flex items-center shadow-sm">
+                                {subjectPillText}
                             </div>
-                        </div>
+                        ) : null}
+
+                        <DashboardNotifications items={notificationItems} />
                     </div>
 
                 </div>
@@ -113,17 +181,7 @@ export default async function DashboardLayout({
             <main className="flex-1 w-full flex flex-col pb-12">
                 <div className="w-full max-w-6xl mx-auto px-4 sm:px-10 xl:px-0 mt-8 mb-6">
                     {/* Figma accurate Tabs Navigation */}
-                    <div className="inline-flex rounded-full border border-[#F59E0B] p-1 bg-white mb-4 sm:mb-8 overflow-x-auto max-w-full shadow-sm">
-                        <Link href="/dashboard" className="px-6 py-2 rounded-full text-sm font-medium transition-colors bg-[#64748B] text-white">
-                            Overview
-                        </Link>
-                        <Link href="/dashboard/history" className="px-6 py-2 rounded-full text-sm font-medium transition-colors text-[#64748B] hover:bg-slate-100 whitespace-nowrap">
-                            Performance
-                        </Link>
-                        <Link href="/dashboard/breakdown" className="px-6 py-2 rounded-full text-sm font-medium transition-colors text-[#64748B] hover:bg-slate-100 whitespace-nowrap">
-                            Score Breakdown
-                        </Link>
-                    </div>
+                    <DashboardTabs />
                 </div>
 
                 {/* Dynamic Page Content */}

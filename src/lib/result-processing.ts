@@ -95,3 +95,48 @@ export async function releaseResults() {
 
     return attemptsToRelease.length
 }
+
+export async function releaseResultsForUser(userId: string) {
+    const now = new Date()
+    const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000)
+
+    const attemptsToRelease = await prisma.attempt.findMany({
+        where: {
+            userId,
+            isProcessed: false,
+            status: "COMPLETED",
+            OR: [
+                {
+                    resultReleaseAt: {
+                        lte: now,
+                    },
+                },
+                {
+                    resultReleaseAt: null,
+                    submitTime: {
+                        lte: twentyFourHoursAgo,
+                    },
+                },
+            ],
+        },
+        select: { id: true, userId: true, score: true },
+    })
+
+    for (const attempt of attemptsToRelease) {
+        await prisma.$transaction(async (tx) => {
+            await tx.attempt.update({
+                where: { id: attempt.id },
+                data: { isProcessed: true },
+            })
+
+            if (attempt.score !== null && attempt.score >= 70) {
+                await tx.user.update({
+                    where: { id: attempt.userId },
+                    data: { currentStage: { increment: 1 } },
+                })
+            }
+        })
+    }
+
+    return attemptsToRelease.length
+}
