@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 
 interface NavbarProps {
-    activePage?: "home" | "about" | "how-it-works" | "stages" | "category" | "prizes"
+    activePage?: "home" | "about" | "how-it-works" | "stages" | "category" | "prizes" | "contact"
 }
 
 export function Navbar({ activePage = "home" }: NavbarProps) {
@@ -72,6 +72,12 @@ export function Navbar({ activePage = "home" }: NavbarProps) {
                     >
                         Prizes
                     </Link>
+                    <Link
+                        href="/contact"
+                        className={`transition-colors ${activePage === "contact" ? "text-[#F59E0B] font-bold" : "text-[#001A41] font-medium hover:text-[#001A41]/80"}`}
+                    >
+                        Contact
+                    </Link>
                 </nav>
 
                 {/* Desktop Auth Buttons */}
@@ -131,6 +137,13 @@ export function Navbar({ activePage = "home" }: NavbarProps) {
                         </Link>
                         <Link href="/prizes" onClick={toggleMenu} className={`transition-colors ${activePage === "prizes" ? "text-[#F59E0B] font-bold" : "text-[#001A41] font-medium"}`}>
                             Prizes
+                        </Link>
+                        <Link
+                            href="/contact"
+                            onClick={toggleMenu}
+                            className={`transition-colors ${activePage === "contact" ? "text-[#F59E0B] font-bold" : "text-[#001A41] font-medium"}`}
+                        >
+                            Contact
                         </Link>
                     </nav>
                     <div className="flex flex-col gap-3 mt-4 pt-6 border-t border-gray-100">
