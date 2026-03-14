@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 
 interface NavbarProps {
-    activePage?: "home" | "about" | "how-it-works"
+    activePage?: "home" | "about" | "how-it-works" | "stages" | "category" | "prizes"
 }
 
 export function Navbar({ activePage = "home" }: NavbarProps) {
@@ -54,13 +54,22 @@ export function Navbar({ activePage = "home" }: NavbarProps) {
                     >
                         How it works
                     </Link>
-                    <Link href="/#stages" className="text-[#001A41] font-medium hover:text-[#001A41]/80 transition-colors">
+                    <Link
+                        href="/stages"
+                        className={`transition-colors ${activePage === "stages" ? "text-[#F59E0B] font-bold" : "text-[#001A41] font-medium hover:text-[#001A41]/80"}`}
+                    >
                         Stages
                     </Link>
-                    <Link href="/#category" className="text-[#001A41] font-medium hover:text-[#001A41]/80 transition-colors">
+                    <Link
+                        href="/category"
+                        className={`transition-colors ${activePage === "category" ? "text-[#F59E0B] font-bold" : "text-[#001A41] font-medium hover:text-[#001A41]/80"}`}
+                    >
                         Category
                     </Link>
-                    <Link href="/#prizes" className="text-[#001A41] font-medium hover:text-[#001A41]/80 transition-colors">
+                    <Link
+                        href="/prizes"
+                        className={`transition-colors ${activePage === "prizes" ? "text-[#F59E0B] font-bold" : "text-[#001A41] font-medium hover:text-[#001A41]/80"}`}
+                    >
                         Prizes
                     </Link>
                 </nav>
@@ -110,13 +119,17 @@ export function Navbar({ activePage = "home" }: NavbarProps) {
                         <Link href="/how-it-works" onClick={toggleMenu} className={`transition-colors ${activePage === "how-it-works" ? "text-[#F59E0B] font-bold" : "text-[#001A41] font-medium"}`}>
                             How it works
                         </Link>
-                        <Link href="/#stages" onClick={toggleMenu} className="text-[#001A41] font-medium">
+                        <Link href="/stages" onClick={toggleMenu} className={`transition-colors ${activePage === "stages" ? "text-[#F59E0B] font-bold" : "text-[#001A41] font-medium"}`}>
                             Stages
                         </Link>
-                        <Link href="/#category" onClick={toggleMenu} className="text-[#001A41] font-medium">
+                        <Link
+                            href="/category"
+                            onClick={toggleMenu}
+                            className={`transition-colors ${activePage === "category" ? "text-[#F59E0B] font-bold" : "text-[#001A41] font-medium"}`}
+                        >
                             Category
                         </Link>
-                        <Link href="/#prizes" onClick={toggleMenu} className="text-[#001A41] font-medium">
+                        <Link href="/prizes" onClick={toggleMenu} className={`transition-colors ${activePage === "prizes" ? "text-[#F59E0B] font-bold" : "text-[#001A41] font-medium"}`}>
                             Prizes
                         </Link>
                     </nav>
