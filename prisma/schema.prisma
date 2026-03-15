@@ -17,6 +17,9 @@ model User {
   fullName     String?
   passwordHash String?
   avatarUrl    String?
+  phoneNumber  String?
+  academicLevel String?
+  schoolName   String?
   attempts     Attempt[]
   sessions     Session[]
 }

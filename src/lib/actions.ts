@@ -52,6 +52,8 @@ export async function register(formData: FormData) {
     const email = formData.get("email") as string
     const password = formData.get("password") as string
     const confirmPassword = formData.get("confirmPassword") as string
+    const academicLevel = (formData.get("academicLevel") as string) || null
+    const schoolName = (formData.get("schoolName") as string) || null
 
     if (!email || !password) {
         redirect("/register?error=missing")
@@ -83,9 +85,11 @@ export async function register(formData: FormData) {
                     fullName,
                     email,
                     passwordHash,
+                    academicLevel,
+                    schoolName,
                     role: "CANDIDATE",
                     currentStage: 1,
-                },
+                } as any,
                 select: { id: true },
             })
     } catch (error) {
